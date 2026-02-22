@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boughzal Bahaeddine</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: #fff;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      min-height: 100vh;
+    }
+
+    /* LEFT SIDE */
+
+    .left {
+      padding: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .profile-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 30px;
+    }
+
+    .name {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 30px;
+      color: #aaa;
+      margin-bottom: 25px;
+    }
+
+    .description {
+      color: #ccc;
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 30px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 15px;
+    }
+
+    .socials a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      transition: .3s;
+    }
+
+    .socials a:hover {
+      background: #6c63ff;
+    }
+
+    /* RIGHT SIDE */
+
+    .right {
+      padding: 80px;
+    }
+
+    .section-title {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 40px;
+    }
+
+    /* WORK GRID */
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .work-card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .work-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: .4s;
+    }
+
+    .work-card:hover img {
+      transform: scale(1.05);
+      opacity: .8;
+    }
+
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 40px;
+      opacity: .9;
+    }
+
+    .video-title {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal iframe {
+      width: 80%;
+      height: 80%;
+      border-radius: 12px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    /* TOOLS */
+
+    .tools-section {
+      margin-top: 80px;
+    }
+
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .tool {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      background: #0f0f0f;
+      border: 1px solid #222;
+      border-radius: 14px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* الصورة داخل الأيقونة */
+    .tool i {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool i img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    /* Hover Effect */
+    .tool:hover {
+      transform: translateY(-4px);
+      border-color: #6c63ff;
+      box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
+    }
+
+    .admin-buttons {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .admin-buttons button {
+      padding: 6px 12px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+
+    .admin-buttons button:first-child {
+      background: orange;
+      color: white;
+    }
+
+    .admin-buttons button:last-child {
+      background: red;
+      color: white;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:1000px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .left,
+      .right {
+        padding: 50px;
+      }
+
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal iframe {
+        width: 95%;
+        height: 60%;
+      }
+    }
+
+    .experience {
+      padding: 80px 10%;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .exp-card {
+      background: #0f0f0f;
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid #222;
+      text-align: center;
+      transition: .3s;
+    }
+
+    .exp-card h3 {
+      font-size: 28px;
+      color: #6c63ff;
+      margin-bottom: 10px;
+    }
+
+    .exp-card:hover {
+      transform: translateY(-5px);
+      border-color: #6c63ff;
+    }
+
+    .reviews {
+      padding: 80px 10%;
+    }
+
+    .slider {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto 0;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+
+    .slides {
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      display: none;
+      border-radius: 15px;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .prev,
+    .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 18px;
+    }
+
+    .prev {
+      left: 15px;
+    }
+
+    .next {
+      right: 15px;
+    }
+
+    .prev:hover,
+    .next:hover {
+      background: #4e47d6;
+    }
+
+    .social {
+      padding: 80px 10%;
+      text-align: center;
+    }
+
+    .social-grid {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 25px;
+      border-radius: 12px;
+      text-decoration: none;
+      background: #0f0f0f;
+      border: 1px solid #222;
+      color: #fff;
+      transition: .3s;
+      font-weight: 500;
+    }
+
+    .social-card i {
+      font-size: 20px;
+    }
+
+    /* Hover Colors */
+    .social-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .social-card:nth-child(1):hover {
+      border-color: #E1306C;
+      color: #E1306C;
+    }
+
+    .social-card:nth-child(2):hover {
+      border-color: #6c63ff;
+      color: #6c63ff;
+    }
+
+    .social-card:nth-child(3):hover {
+      border-color: #25D366;
+      color: #25D366;
+    }
+
+    /* ========================= */
+    /* 📱 Mobile Devices */
+    /* ========================= */
+    @media (max-width: 768px) {
+
+      body {
+        overflow-x: hidden;
+      }
+
+      section {
+        padding: 60px 5%;
+      }
+
+      .section-title {
+        font-size: 24px;
+        text-align: center;
+      }
+
+      /* Hero Section */
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      /* Work Grid */
+      .work-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      /* Tools */
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Experience */
+      .experience-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Slider */
+      .slider {
+        width: 100%;
+      }
+
+      .prev,
+      .next {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      /* Social */
+      .social-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .social-card {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Modal Video */
+      .modal iframe {
+        width: 95%;
+        height: 60%;
+      }
+
+      .tool {
+        justify-content: center;
+      }
+    }
+
+
+    /* ========================= */
+    /* 📲 Tablet Devices */
+    /* ========================= */
+    @media (min-width: 769px) and (max-width: 1024px) {
+
+      section {
+        padding: 70px 7%;
+      }
+
+      .work-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .experience-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .modal iframe {
+        width: 90%;
+        height: 70%;
+      }
+
+    }
+
+
+    /* ========================= */
+    /* 💻 Laptop & Large Screens */
+    /* ========================= */
+    @media (min-width: 1025px) {
+
+      .work-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .experience-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+    }
+  </style>
+</head>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  getDocs, 
+  deleteDoc, 
+  doc 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBmzTHIZhdrqxyHAtS3TFnz24dFRxS9qoE",
+  authDomain: "portfolio-admin-d3ec7.firebaseapp.com",
+  projectId: "portfolio-admin-d3ec7",
+  storageBucket: "portfolio-admin-d3ec7.firebasestorage.app",
+  messagingSenderId: "474707735889",
+  appId: "1:474707735889:web:c83f35aad60dd0c53fcf70",
+  measurementId: "G-S397H2HMRT"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+/* ========================= */
+/* LOAD VIDEOS FOR VISITORS */
+/* ========================= */
+
+async function loadVideos(){
+
+  const grid = document.querySelector(".work-grid");
+  grid.innerHTML = "";
+
+  const querySnapshot = await getDocs(collection(db, "videos"));
+
+  querySnapshot.forEach((documento) => {
+
+    const video = documento.data();
+
+    const videoHTML = `
+      <div class="work-card" onclick="openVideo('${video.preview}')">
+        <img src="${video.thumbnail}">
+        <div class="play-icon">▶</div>
+        <div class="video-title">${video.title}</div>
+      </div>
+    `;
+
+    grid.insertAdjacentHTML("beforeend", videoHTML);
+  });
+}
+
+loadVideos();
+
+</script>
+
+<body>
+
+  <div class="container">
+
+    <!-- LEFT -->
+    <div class="left">
+      <img src="./images/كحل.png" class="profile-img">
+
+      <div class="name">BOUGHZAL BAHAEDDINE</div>
+
+      <div class="meta">
+        <div>📍 Algeria</div>
+        <div>🌍 Arabic</div>
+      </div>
+
+      <div class="description">
+        I create high-retention, performance-driven videos designed to grow audiences and increase conversions.
+        Skilled in hook creation, viewer psychology, and platform algorithms.
+        After Effects | Premiere Pro | AI-powered workflows.
+      </div>
+
+      <section class="social">
+        <h2 class="section-title">My Social Media</h2>
+
+        <div class="social-grid">
+
+          <a href="https://instagram.com/eaglex356" target="_blank" class="social-card">
+            <i class="fa-brands fa-instagram"></i>
+            <span>@eaglex356</span>
+          </a>
+
+          <a href="mailto:bahaeddineboughzal@gmail.com" class="social-card">
+            <i class="fa-solid fa-envelope"></i>
+            <span>bahaeddineboughzal@gmail.com</span>
+          </a>
+
+          <a href="https://wa.me/213674357338" target="_blank" class="social-card">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>WhatsApp</span>
+          </a>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+
+      <div class="section-title">My Work</div>
+      <div class="work-grid"></div>
+
+
+
+      <div class="section-title">Editing Tools</div>
+
+      <div class="tools-grid">
+
+        <div class="tool">
+          <i class=""><img src="./images/adobe.png" alt=""></i>
+          Adobe Premiere Pro
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/after.png" alt=""></i>
+          Adobe After Effects
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/filmora-logo-icon.png" alt=""></i>
+          Filmora
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/vecteezy_capcut-transparent-icon_48759325.png" alt=""></i>
+          CapCut
+        </div>
+
+      </div>
+      <div class="section-title">AI Tools</div>
+
+      <div class="tools-grid">
+
+        <div class="tool">
+          <i class=""><img src="./images/logo.jpg" alt=""></i>
+          Nano banana
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/dalle.png" alt=""></i>
+          DALL·E
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/runway-ai-icon.png" alt=""></i>
+          RunwayML
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/pika-logo-icon.png" alt=""></i>
+          Pika Labs
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/kling-ai-icon.png" alt=""></i>
+          Kling AI
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/veo3.png" alt=""></i>
+          Google VEO
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/sora.png" alt=""></i>
+          Sora
+        </div>
+
+        <div class="tool">
+          <i class=""><img src="./images/heygen.png" alt=""></i>
+          HeyGen
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <section class="experience">
+    <h2 class="section-title">Experience</h2>
+
+    <div class="experience-grid">
+
+      <div class="exp-card">
+        <h3>1.5 Years</h3>
+        <p>Professional Video Editing</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>+150</h3>
+        <p>Completed Projects</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>+50</h3>
+        <p>Happy Clients</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>AI Specialist</h3>
+        <p>Advanced AI Video Production</p>
+      </div>
+
+    </div>
+  </section>
+  <section class="reviews">
+    <h2 class="section-title">Client Reviews</h2>
+
+    <div class="slider">
+
+      <div class="slides">
+        <img src="./images/1.jpeg" class="slide active">
+        <img src="./images/2.jpeg" class="slide">
+        <img src="./images/3.jpeg" class="slide">
+      </div>
+
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+
+    </div>
+  </section>
+
+  <!-- VIDEO MODAL -->
+
+
+
+<div class="modal" id="videoModal" onclick="closeVideo()">
+  <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
+</div>
+
+<script>
+function openVideo(link){
+  document.getElementById('videoFrame').src = link;
+  document.getElementById('videoModal').classList.add('active');
+}
+
+function closeVideo(){
+  document.getElementById('videoFrame').src = "";
+  document.getElementById('videoModal').classList.remove('active');
+}
+</script>
+  <script>
+    let slides = document.querySelectorAll(".slide");
+    let index = 0;
+
+    function showSlide(i) {
+      slides.forEach(slide => slide.classList.remove("active"));
+      slides[i].classList.add("active");
+    }
+
+    function nextSlide() {
+      index++;
+      if (index >= slides.length) { index = 0; }
+      showSlide(index);
+    }
+
+    function prevSlide() {
+      index--;
+      if (index < 0) { index = slides.length - 1; }
+      showSlide(index);
+    }
+
+    document.querySelector(".next").addEventListener("click", nextSlide);
+    document.querySelector(".prev").addEventListener("click", prevSlide);
+
+    // Auto slide every 1 second
+    setInterval(nextSlide, 3000);
+  </script>
+</body>
+
+</html>

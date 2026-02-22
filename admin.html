@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+    padding:50px;
+}
+
+.admin-box{
+    background:#222;
+    padding:30px;
+    border-radius:10px;
+    max-width:500px;
+    margin:auto;
+}
+
+input{
+    width:90%;
+    padding:10px;
+    margin:10px 0;
+}
+
+button{
+    padding:10px 20px;
+    background:orange;
+    border:none;
+    color:white;
+    cursor:pointer;
+}
+
+.video-list{
+    margin-top:30px;
+    text-align:left;
+}
+
+.video-item{
+    background:#333;
+    padding:10px;
+    margin:10px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.video-item button{
+    margin-left:5px;
+}
+</style>
+</head>
+<body>
+
+<div class="admin-box">
+<h2>Admin Panel</h2>
+
+<input type="password" id="adminPass" placeholder="Enter Password">
+<button onclick="checkLogin()">Login</button>
+
+<div id="panel" style="display:none;">
+
+<h3>Add Video</h3>
+<input type="text" id="videoTitle" placeholder="Video Title">
+<input type="text" id="videoLink" placeholder="Google Drive Link">
+<button onclick="addVideo()">Add Video</button>
+
+<div class="video-list" id="videoList"></div>
+
+</div>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  getDocs, 
+  deleteDoc, 
+  doc 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBmzTHIZhdrqxyHAtS3TFnz24dFRxS9qoE",
+  authDomain: "portfolio-admin-d3ec7.firebaseapp.com",
+  projectId: "portfolio-admin-d3ec7",
+  storageBucket: "portfolio-admin-d3ec7.firebasestorage.app",
+  messagingSenderId: "474707735889",
+  appId: "1:474707735889:web:c83f35aad60dd0c53fcf70",
+  measurementId: "G-S397H2HMRT"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* ===== PASSWORD ===== */
+
+window.checkLogin = function(){
+
+  const pass = document.getElementById("adminPass").value;
+
+  if(pass === "1234"){   // يمكنك تغيير كلمة السر هنا
+    document.getElementById("panel").style.display = "block";
+  }else{
+    alert("Wrong Password");
+  }
+};
+
+/* ===== LOAD ===== */
+
+async function loadVideos(){
+
+  const list = document.getElementById("videoList");
+  list.innerHTML = "";
+
+  const querySnapshot = await getDocs(collection(db, "videos"));
+
+  querySnapshot.forEach((documento) => {
+
+    const video = documento.data();
+    const id = documento.id;
+
+    list.innerHTML += `
+      <div class="video-item">
+        ${video.title}
+        <div>
+          <button onclick="deleteVideo('${id}')">Delete</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+/* ===== ADD ===== */
+
+window.addVideo = async function(){
+
+  const title = document.getElementById("videoTitle").value;
+  const link = document.getElementById("videoLink").value;
+
+  const fileId = link.split("/d/")[1].split("/")[0];
+
+  const preview = "https://drive.google.com/file/d/" + fileId + "/preview";
+  const thumbnail = "https://drive.google.com/thumbnail?id=" + fileId;
+
+  await addDoc(collection(db, "videos"), {
+    title,
+    preview,
+    thumbnail
+  });
+
+  loadVideos();
+};
+
+/* ===== DELETE ===== */
+
+window.deleteVideo = async function(id){
+
+  await deleteDoc(doc(db, "videos", id));
+  loadVideos();
+};
+
+loadVideos();
+
+</script>
+
+</body>
+</html>
