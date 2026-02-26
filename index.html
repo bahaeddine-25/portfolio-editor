@@ -262,7 +262,7 @@ border-radius:20px;
 
 .filters button:hover{
 
-background:orange;
+background:#4e47d6;
 
 }
     /* RESPONSIVE */
@@ -585,10 +585,10 @@ let allVideos = [];
 
 async function loadVideos(){
 
-const grid = document.querySelector(".work-grid");
-
 const querySnapshot =
 await getDocs(collection(db,"videos"));
+
+allVideos = [];
 
 querySnapshot.forEach((doc)=>{
 
@@ -596,17 +596,26 @@ allVideos.push(doc.data());
 
 });
 
-showVideos(allVideos);
+filterVideos("all");
 
 }
 
 
-function showVideos(videos){
+window.filterVideos = function(category){
 
 const grid =
 document.querySelector(".work-grid");
 
 grid.innerHTML="";
+
+
+const videos =
+allVideos.filter(video=>
+category=="all"
+||
+video.category===category
+);
+
 
 videos.forEach(video=>{
 
@@ -639,27 +648,8 @@ videoHTML
 }
 
 
-function filterVideos(category){
-
-if(category=="all"){
-
-showVideos(allVideos);
-
-return;
-
-}
-
-const filtered =
-allVideos.filter(video=>
-video.category==category
-);
-
-showVideos(filtered);
-
-}
-
-
 loadVideos();
+
 </script>
 
 <body>
@@ -709,22 +699,41 @@ loadVideos();
 
     <!-- RIGHT -->
     <div class="right">
-<div class="filters">
 
-<button onclick="filterVideos('all')">All</button>
-<button onclick="filterVideos('ai')">AI</button>
-<button onclick="filterVideos('ads')">Ads</button>
-<button onclick="filterVideos('reel')">Reels</button>
-<button onclick="filterVideos('story')">Stories</button>
-<button onclick="filterVideos('highlight')">Highlights</button>
-<button onclick="filterVideos('islamic')">Islamic</button>
-<button onclick="filterVideos('map animation')">map animation</button>
-  
- 
-
-
-</div>
       <div class="section-title">My Work</div>
+      <div class="filters">
+
+<button onclick="filterVideos('all')">
+All
+</button>
+
+<button onclick="filterVideos('ai')">
+AI
+</button>
+
+<button onclick="filterVideos('ads')">
+Ads
+</button>
+
+<button onclick="filterVideos('reel')">
+Reels
+</button>
+
+<button onclick="filterVideos('story')">
+Stories
+</button>
+
+<button onclick="filterVideos('highlight')">
+Highlights
+</button>
+
+<button onclick="filterVideos('islamic')">
+Islamic
+</button>
+<button onclick="filterVideos('map animation')">
+map animation
+</button>
+</div>
       <div class="work-grid"></div>
 
 
@@ -896,6 +905,7 @@ function closeVideo(){
 
 
 </html>
+
 
 
 
