@@ -241,7 +241,30 @@
       background: red;
       color: white;
     }
+.filters{
 
+text-align:center;
+margin:30px;
+
+}
+
+.filters button{
+
+padding:10px 20px;
+margin:5px;
+border:none;
+background:#222;
+color:white;
+cursor:pointer;
+border-radius:20px;
+
+}
+
+.filters button:hover{
+
+background:orange;
+
+}
     /* RESPONSIVE */
 
     @media(max-width:1000px) {
@@ -558,31 +581,85 @@ const db = getFirestore(app);
 /* LOAD VIDEOS FOR VISITORS */
 /* ========================= */
 
+let allVideos = [];
+
 async function loadVideos(){
 
-  const grid = document.querySelector(".work-grid");
-  grid.innerHTML = "";
+const grid = document.querySelector(".work-grid");
 
-  const querySnapshot = await getDocs(collection(db, "videos"));
+const querySnapshot =
+await getDocs(collection(db,"videos"));
 
-  querySnapshot.forEach((documento) => {
+querySnapshot.forEach((doc)=>{
 
-    const video = documento.data();
+allVideos.push(doc.data());
 
-    const videoHTML = `
-      <div class="work-card" onclick="openVideo('${video.preview}')">
-        <img src="${video.thumbnail}">
-        <div class="play-icon">▶</div>
-        <div class="video-title">${video.title}</div>
-      </div>
-    `;
+});
 
-    grid.insertAdjacentHTML("beforeend", videoHTML);
-  });
+showVideos(allVideos);
+
 }
 
-loadVideos();
 
+function showVideos(videos){
+
+const grid =
+document.querySelector(".work-grid");
+
+grid.innerHTML="";
+
+videos.forEach(video=>{
+
+const videoHTML = `
+
+<div class="work-card"
+onclick="openVideo('${video.preview}')">
+
+<img src="${video.thumbnail}">
+
+<div class="play-icon">▶</div>
+
+<div class="video-title">
+
+${video.title}
+
+</div>
+
+</div>
+
+`;
+
+grid.insertAdjacentHTML(
+"beforeend",
+videoHTML
+);
+
+});
+
+}
+
+
+function filterVideos(category){
+
+if(category=="all"){
+
+showVideos(allVideos);
+
+return;
+
+}
+
+const filtered =
+allVideos.filter(video=>
+video.category==category
+);
+
+showVideos(filtered);
+
+}
+
+
+loadVideos();
 </script>
 
 <body>
@@ -632,7 +709,21 @@ loadVideos();
 
     <!-- RIGHT -->
     <div class="right">
+<div class="filters">
 
+<button onclick="filterVideos('all')">All</button>
+<button onclick="filterVideos('ai')">AI</button>
+<button onclick="filterVideos('ads')">Ads</button>
+<button onclick="filterVideos('reel')">Reels</button>
+<button onclick="filterVideos('story')">Stories</button>
+<button onclick="filterVideos('highlight')">Highlights</button>
+<button onclick="filterVideos('islamic')">Islamic</button>
+<button onclick="filterVideos('map animation')">map animation</button>
+  
+ 
+
+
+</div>
       <div class="section-title">My Work</div>
       <div class="work-grid"></div>
 
@@ -805,5 +896,6 @@ function closeVideo(){
 
 
 </html>
+
 
 
