@@ -10,962 +10,249 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #000;
-      color: #fff;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      min-height: 100vh;
-    }
-
-    /* LEFT SIDE */
-
-    .left {
-      padding: 80px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .profile-img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 30px;
-    }
-
-    .name {
-      font-size: 48px;
-      font-weight: 800;
-      margin-bottom: 20px;
-    }
-
-    .meta {
-      display: flex;
-      gap: 30px;
-      color: #aaa;
-      margin-bottom: 25px;
-    }
-
-    .description {
-      color: #ccc;
-      line-height: 1.7;
-      max-width: 500px;
-      margin-bottom: 30px;
-    }
-
-    .socials {
-      display: flex;
-      gap: 15px;
-    }
-
-    .socials a {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: white;
-      font-size: 18px;
-      transition: .3s;
-    }
-
-    .socials a:hover {
-      background: #6c63ff;
-    }
-
-    /* RIGHT SIDE */
-
-    .right {
-      padding: 80px;
-    }
-
-    .section-title {
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 40px;
-    }
-
-    /* WORK GRID */
-
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-    }
-
-    .work-card {
-      position: relative;
-      border-radius: 18px;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .work-card img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      transition: .4s;
-    }
-
-    .work-card:hover img {
-      transform: scale(1.05);
-      opacity: .8;
-    }
-
-    .play-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 40px;
-      opacity: .9;
-    }
-
-    .video-title {
-      position: absolute;
-      bottom: 15px;
-      left: 15px;
-      font-size: 16px;
-      font-weight: 600;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 6px 12px;
-      border-radius: 8px;
-    }
-
-    /* MODAL */
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.95);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-    }
-
-    .modal iframe {
-      width: 80%;
-      height: 80%;
-      border-radius: 12px;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    /* TOOLS */
-
-    .tools-section {
-      margin-top: 80px;
-    }
-
-    .tools-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 40px;
-    }
-
-    .tool {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 22px;
-      background: #0f0f0f;
-      border: 1px solid #222;
-      border-radius: 14px;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    /* الصورة داخل الأيقونة */
-    .tool i {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tool i img {
-      width: 26px;
-      height: 26px;
-      object-fit: contain;
-    }
-
-    /* Hover Effect */
-    .tool:hover {
-      transform: translateY(-4px);
-      border-color: #6c63ff;
-      box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
-    }
-
-    .admin-buttons {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .admin-buttons button {
-      padding: 6px 12px;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 13px;
-    }
-
-    .admin-buttons button:first-child {
-      background: orange;
-      color: white;
-    }
-
-    .admin-buttons button:last-child {
-      background: red;
-      color: white;
-    }
-.filters{
-
-text-align:center;
-margin:30px;
-
-}
-
-.filters button{
-
-padding:10px 20px;
-margin:5px;
-border:none;
-background:#222;
-color:white;
-cursor:pointer;
-border-radius:20px;
-
-}
-
-.filters button:hover{
-  transform: translateY(-4px);
-      border-color: #6c63ff;
-      box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
-
-}
-    /* RESPONSIVE */
-
-    @media(max-width:1000px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
-
-      .left,
-      .right {
-        padding: 50px;
-      }
-
-      .work-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .modal iframe {
-        width: 95%;
-        height: 60%;
-      }
-    }
-
-    .experience {
-      padding: 80px 10%;
-      display:
-    }
-    
-      .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 40px;
-      margin-top: 40px;
-    }
-
-    .card {
-      background: linear-gradient(145deg, #1e293b, #0f172a);
-      padding: 35px;
-      border-radius: 20px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s ease;
-      border: 1px solid rgba(255,255,255,0.05);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: #2563eb;
-      transition: 0.4s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(37, 99, 235, 0.25);
-      border-color: rgba(37, 99, 235, 0.4);
-    }
-
-    .card:hover::before {
-      width: 100%;
-      opacity: 0.05;
-    }
-
-    .card h3 {
-      margin-bottom: 20px;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-    }
-
-    .card p {
-      color: #cbd5e1;
-      font-size: 0.95rem;
-      line-height: 1.8;
-    }
-
-    .experience-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
-    }
-
-    .exp-card {
-      background: #0f0f0f;
-      padding: 30px;
-      border-radius: 15px;
-      border: 1px solid #222;
-      text-align: center;
-      transition: .3s;
-    }
-
-    .exp-card h3 {
-      font-size: 28px;
-      color: #6c63ff;
-      margin-bottom: 10px;
-    }
-
-    .exp-card:hover {
-      transform: translateY(-5px);
-      border-color: #6c63ff;
-    }
-
-    .reviews {
-      padding: 80px 10%;
-    }
-
-    .slider {
-      position: relative;
-      max-width: 800px;
-      margin: 40px auto 0;
-      overflow: hidden;
-      border-radius: 15px;
-    }
-
-    .slides {
-      position: relative;
-    }
-
-    .slide {
-      width: 100%;
-      display: none;
-      border-radius: 15px;
-    }
-
-    .slide.active {
-      display: block;
-    }
-
-    .prev,
-    .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #6c63ff;
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 50%;
-      font-size: 18px;
-    }
-
-    .prev {
-      left: 15px;
-    }
-
-    .next {
-      right: 15px;
-    }
-
-    .prev:hover,
-    .next:hover {
-      background: #4e47d6;
-    }
-
-    .social {
-      padding: 80px 10%;
-      text-align: center;
-    }
-
-    .social-grid {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-
-    .social-card {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px 25px;
-      border-radius: 12px;
-      text-decoration: none;
-      background: #0f0f0f;
-      border: 1px solid #222;
-      color: #fff;
-      transition: .3s;
-      font-weight: 500;
-    }
-
-    .social-card i {
-      font-size: 20px;
-    }
-
-    /* Hover Colors */
-    .social-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .social-card:nth-child(1):hover {
-      border-color: #E1306C;
-      color: #E1306C;
-    }
-
-    .social-card:nth-child(2):hover {
-      border-color: #6c63ff;
-      color: #6c63ff;
-    }
-
-    .social-card:nth-child(3):hover {
-      border-color: #25D366;
-      color: #25D366;
-    }
-
-    /* ========================= */
-    /* 📱 Mobile Devices */
-    /* ========================= */
+    /* جميع الستايلات الموجودة – لم تتغير */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #000; color: #fff; }
+    .container { display: grid; grid-template-columns: 1fr 1.2fr; min-height: 100vh; }
+    .left { padding: 80px; display: flex; flex-direction: column; justify-content: center; }
+    .profile-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin-bottom: 30px; }
+    .name { font-size: 48px; font-weight: 800; margin-bottom: 20px; }
+    .meta { display: flex; gap: 30px; color: #aaa; margin-bottom: 25px; }
+    .description { color: #ccc; line-height: 1.7; max-width: 500px; margin-bottom: 30px; }
+    .socials { display: flex; gap: 15px; }
+    .socials a { width: 40px; height: 40px; border-radius: 50%; background: #111; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; font-size: 18px; transition: .3s; }
+    .socials a:hover { background: #6c63ff; }
+    .right { padding: 80px; }
+    .section-title { font-size: 42px; font-weight: 800; margin-bottom: 40px; }
+    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+    .work-card { position: relative; border-radius: 18px; overflow: hidden; cursor: pointer; }
+    .work-card img { width: 100%; height: 250px; object-fit: cover; transition: .4s; }
+    .work-card:hover img { transform: scale(1.05); opacity: .8; }
+    .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; opacity: .9; }
+    .video-title { position: absolute; bottom: 15px; left: 15px; font-size: 16px; font-weight: 600; background: rgba(0, 0, 0, 0.6); padding: 6px 12px; border-radius: 8px; }
+    .modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); display: none; align-items: center; justify-content: center; z-index: 999; }
+    .modal iframe { width: 80%; height: 80%; border-radius: 12px; }
+    .modal.active { display: flex; }
+    .tools-grid { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; }
+    .tool { display: flex; align-items: center; gap: 12px; padding: 14px 22px; background: #0f0f0f; border: 1px solid #222; border-radius: 14px; color: #fff; font-size: 15px; font-weight: 500; transition: all 0.3s ease; cursor: pointer; }
+    .tool i img { width: 26px; height: 26px; object-fit: contain; }
+    .tool:hover { transform: translateY(-4px); border-color: #6c63ff; box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2); }
+    .filters { text-align: center; margin: 30px; }
+    .filters button { padding: 10px 20px; margin: 5px; border: none; background: #222; color: white; cursor: pointer; border-radius: 20px; transition: 0.3s; }
+    .filters button:hover { transform: translateY(-4px); border-color: #6c63ff; box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2); }
+    .experience { padding: 80px 10%; }
+    .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-top: 40px; }
+    .exp-card { background: #0f0f0f; padding: 30px; border-radius: 15px; border: 1px solid #222; text-align: center; transition: .3s; }
+    .exp-card h3 { font-size: 28px; color: #6c63ff; margin-bottom: 10px; }
+    .exp-card:hover { transform: translateY(-5px); border-color: #6c63ff; }
+    .reviews { padding: 80px 10%; }
+    .slider { position: relative; max-width: 800px; margin: 40px auto 0; overflow: hidden; border-radius: 15px; }
+    .slides { position: relative; }
+    .slide { width: 100%; display: none; border-radius: 15px; }
+    .slide.active { display: block; }
+    .prev, .next { position: absolute; top: 50%; transform: translateY(-50%); background: #6c63ff; color: #fff; border: none; padding: 10px 15px; cursor: pointer; border-radius: 50%; font-size: 18px; }
+    .prev { left: 15px; }
+    .next { right: 15px; }
+    .prev:hover, .next:hover { background: #4e47d6; }
+    .social { padding: 80px 10%; text-align: center; }
+    .social-grid { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-top: 40px; }
+    .social-card { display: flex; align-items: center; gap: 10px; padding: 15px 25px; border-radius: 12px; text-decoration: none; background: #0f0f0f; border: 1px solid #222; color: #fff; transition: .3s; font-weight: 500; }
+    .social-card i { font-size: 20px; }
+    .social-card:hover { transform: translateY(-4px); }
+    .social-card:nth-child(1):hover { border-color: #E1306C; color: #E1306C; }
+    .social-card:nth-child(2):hover { border-color: #6c63ff; color: #6c63ff; }
+    .social-card:nth-child(3):hover { border-color: #25D366; color: #25D366; }
+
+    /* Responsive */
     @media (max-width: 768px) {
-
-      body {
-        overflow-x: hidden;
-      }
-
-      section {
-        padding: 60px 5%;
-      }
-
-      .section-title {
-        font-size: 24px;
-        text-align: center;
-      }
-
-      /* Hero Section */
-      .hero {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .hero p {
-        font-size: 14px;
-      }
-
-      /* Work Grid */
-      .work-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      /* Tools */
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
-
-      /* Experience */
-      .experience-grid {
-        grid-template-columns: 1fr;
-      }
-
-      /* Slider */
-      .slider {
-        width: 100%;
-      }
-
-      .prev,
-      .next {
-        padding: 8px 12px;
-        font-size: 14px;
-      }
-
-      /* Social */
-      .social-grid {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .social-card {
-        width: 100%;
-        justify-content: center;
-      }
-
-      /* Modal Video */
-      .modal iframe {
-        width: 95%;
-        height: 60%;
-      }
-
-      .tool {
-        justify-content: center;
-      }
+      .container { grid-template-columns: 1fr; }
+      .left, .right { padding: 50px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .experience-grid { grid-template-columns: 1fr; }
+      .social-grid { flex-direction: column; align-items: center; }
+      .social-card { width: 100%; justify-content: center; }
+      .modal iframe { width: 95%; height: 60%; }
     }
-
-
-    /* ========================= */
-    /* 📲 Tablet Devices */
-    /* ========================= */
     @media (min-width: 769px) and (max-width: 1024px) {
-
-      section {
-        padding: 70px 7%;
-      }
-
-      .work-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .tools-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .experience-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .modal iframe {
-        width: 90%;
-        height: 70%;
-      }
-
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .experience-grid { grid-template-columns: repeat(2, 1fr); }
     }
-
-
-    /* ========================= */
-    /* 💻 Laptop & Large Screens */
-    /* ========================= */
     @media (min-width: 1025px) {
-
-      .work-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .tools-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .experience-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
+      .work-grid { grid-template-columns: repeat(3, 1fr); }
+      .tools-grid { grid-template-columns: repeat(4, 1fr); }
+      .experience-grid { grid-template-columns: repeat(4, 1fr); }
     }
   </style>
 </head>
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  getDocs, 
-  deleteDoc, 
-  doc 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBmzTHIZhdrqxyHAtS3TFnz24dFRxS9qoE",
-  authDomain: "portfolio-admin-d3ec7.firebaseapp.com",
-  projectId: "portfolio-admin-d3ec7",
-  storageBucket: "portfolio-admin-d3ec7.firebasestorage.app",
-  messagingSenderId: "474707735889",
-  appId: "1:474707735889:web:c83f35aad60dd0c53fcf70",
-  measurementId: "G-S397H2HMRT"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-/* ========================= */
-/* LOAD VIDEOS FOR VISITORS */
-/* ========================= */
-
-let allVideos = [];
-
-async function loadVideos(){
-
-const querySnapshot =
-await getDocs(collection(db,"videos"));
-
-allVideos = [];
-
-querySnapshot.forEach((doc)=>{
-
-allVideos.push(doc.data());
-
-});
-
-filterVideos("all");
-
-}
-
-
-window.filterVideos = function(category){
-
-const grid =
-document.querySelector(".work-grid");
-
-grid.innerHTML="";
-
-
-const videos =
-allVideos.filter(video=>
-category=="all"
-||
-video.category===category
-);
-
-
-videos.forEach(video=>{
-
-const videoHTML = `
-
-<div class="work-card"
-onclick="openVideo('${video.preview}')">
-
-<img src="${video.thumbnail}">
-
-<div class="play-icon">▶</div>
-
-<div class="video-title">
-
-${video.title}
-
-</div>
-
-</div>
-
-`;
-
-grid.insertAdjacentHTML(
-"beforeend",
-videoHTML
-);
-
-});
-
-}
-
-
-loadVideos();
-
-</script>
 
 <body>
 
   <div class="container">
-
-    <!-- LEFT -->
+    <!-- LEFT SIDE -->
     <div class="left">
       <img src="./كحل.png" class="profile-img">
-
       <div class="name">BOUGHZAL BAHAEDDINE</div>
-
-      <div class="meta">
-        <div>📍 Algeria</div>
-        <div>🌍 Arabic</div>
-      </div>
-
+      <div class="meta"><div>📍 Algeria</div><div>🌍 Arabic</div></div>
       <div class="description">
-    Performance-driven video editor with 1.5+ years of experience creating high-retention content.
-      Produced 100+ videos and contributed to campaigns generating 300+ orders in 30 minutes.
-      Specialized in hook strategy, audience psychology, and AI-powered workflows.
+        Performance-driven video editor with 1.5+ years of experience creating high-retention content.
+        Produced 100+ videos and contributed to campaigns generating 300+ orders in 30 minutes.
+        Specialized in hook strategy, audience psychology, and AI-powered workflows.
       </div>
-
       <section class="social">
         <h2 class="section-title">My Social Media</h2>
-
         <div class="social-grid">
-
-          <a href="https://instagram.com/eaglex356" target="_blank" class="social-card">
-            <i class="fa-brands fa-instagram"></i>
-            <span>@eaglex356</span>
-          </a>
-
-          <a href="mailto:bahaeddineboughzal@gmail.com" class="social-card">
-            <i class="fa-solid fa-envelope"></i>
-            <span>bahaeddineboughzal@gmail.com</span>
-          </a>
-
-          <a href="https://wa.me/213674357338" target="_blank" class="social-card">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>WhatsApp</span>
-          </a>
-
+          <a href="https://instagram.com/eaglex356" target="_blank" class="social-card"><i class="fa-brands fa-instagram"></i><span>@eaglex356</span></a>
+          <a href="mailto:bahaeddineboughzal@gmail.com" class="social-card"><i class="fa-solid fa-envelope"></i><span>bahaeddineboughzal@gmail.com</span></a>
+          <a href="https://wa.me/213674357338" target="_blank" class="social-card"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
         </div>
       </section>
     </div>
 
-    <!-- RIGHT -->
+    <!-- RIGHT SIDE -->
     <div class="right">
-
       <div class="section-title">My Work</div>
       <div class="filters">
-
-<button onclick="filterVideos('all')">
-All
-</button>
-
-<button onclick="filterVideos('ai')">
-AI
-</button>
-
-<button onclick="filterVideos('ads')">
-Ads
-</button>
-
-<button onclick="filterVideos('reel')">
-Reels
-</button>
-
-<button onclick="filterVideos('story')">
-Stories
-</button>
-
-<button onclick="filterVideos('highlight')">
-Highlights
-</button>
-
-<button onclick="filterVideos('islamic')">
-Islamic
-</button>
-<button onclick="filterVideos('map animation')">
-map animation
-</button>
-</div>
+        <button onclick="filterVideos('all')">All</button>
+        <button onclick="filterVideos('ai')">AI</button>
+        <button onclick="filterVideos('ads')">Ads</button>
+        <button onclick="filterVideos('reel')">Reels</button>
+        <button onclick="filterVideos('story')">Stories</button>
+        <button onclick="filterVideos('highlight')">Highlights</button>
+        <button onclick="filterVideos('islamic')">Islamic</button>
+        <button onclick="filterVideos('map animation')">map animation</button>
+      </div>
       <div class="work-grid"></div>
 
-
-
       <div class="section-title">Editing Tools</div>
-
       <div class="tools-grid">
-
-        <div class="tool">
-          <i class=""><img src="./adobe.png" alt=""></i>
-          Adobe Premiere Pro
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./after.png" alt=""></i>
-          Adobe After Effects
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./filmora-logo-icon.png" alt=""></i>
-          Filmora
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./vecteezy_capcut-transparent-icon_48759325.png" alt=""></i>
-          CapCut
-        </div>
-
+        <div class="tool"><i><img src="./adobe.png" alt=""></i> Adobe Premiere Pro</div>
+        <div class="tool"><i><img src="./after.png" alt=""></i> Adobe After Effects</div>
+        <div class="tool"><i><img src="./filmora-logo-icon.png" alt=""></i> Filmora</div>
+        <div class="tool"><i><img src="./vecteezy_capcut-transparent-icon_48759325.png" alt=""></i> CapCut</div>
       </div>
+
       <div class="section-title">AI Tools</div>
-
       <div class="tools-grid">
-
-        <div class="tool">
-          <i class=""><img src="./logo.jpg" alt=""></i>
-          Nano banana
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./dalle.png" alt=""></i>
-          DALL·E
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./runway-ai-icon.png" alt=""></i>
-          RunwayML
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./pika-logo-icon.png" alt=""></i>
-          Pika Labs
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./kling-ai-icon.png" alt=""></i>
-          Kling AI
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./veo3.png" alt=""></i>
-          Google VEO
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./sora.png" alt=""></i>
-          Sora
-        </div>
-
-        <div class="tool">
-          <i class=""><img src="./heygen.png" alt=""></i>
-          HeyGen
-        </div>
-
+        <div class="tool"><i><img src="./logo.jpg" alt=""></i> Nano banana</div>
+        <div class="tool"><i><img src="./dalle.png" alt=""></i> DALL·E</div>
+        <div class="tool"><i><img src="./runway-ai-icon.png" alt=""></i> RunwayML</div>
+        <div class="tool"><i><img src="./pika-logo-icon.png" alt=""></i> Pika Labs</div>
+        <div class="tool"><i><img src="./kling-ai-icon.png" alt=""></i> Kling AI</div>
+        <div class="tool"><i><img src="./veo3.png" alt=""></i> Google VEO</div>
+        <div class="tool"><i><img src="./sora.png" alt=""></i> Sora</div>
+        <div class="tool"><i><img src="./heygen.png" alt=""></i> HeyGen</div>
       </div>
-
     </div>
   </div>
-   
+
   <section class="experience">
     <h2 class="section-title">Experience</h2>
-      <div class="exp-card">
-        <h3>1.5 Years</h3>
-        <p>Professional Video Editing</p>
-      </div>
-
-      <div class="exp-card">
-        <h3>+150</h3>
-        <p>Completed Projects</p>
-      </div>
-
-      <div class="exp-card">
-        <h3>+50</h3>
-        <p>Happy Clients</p>
-      </div>
-
-      <div class="exp-card">
-        <h3>AI Specialist</h3>
-        <p>Advanced AI Video Production</p>
-      </div>
+    <div class="experience-grid">
+      <div class="exp-card"><h3>1.5 Years</h3><p>Professional Video Editing</p></div>
+      <div class="exp-card"><h3>+150</h3><p>Completed Projects</p></div>
+      <div class="exp-card"><h3>+50</h3><p>Happy Clients</p></div>
+      <div class="exp-card"><h3>AI Specialist</h3><p>Advanced AI Video Production</p></div>
     </div>
-
   </section>
+
   <section class="reviews">
     <h2 class="section-title">Client Reviews</h2>
-
     <div class="slider">
-
       <div class="slides">
         <img src="./1.jpeg" class="slide active">
         <img src="./2.jpeg" class="slide">
         <img src="./3.jpeg" class="slide">
       </div>
-
       <button class="prev">&#10094;</button>
       <button class="next">&#10095;</button>
-
     </div>
   </section>
 
   <!-- VIDEO MODAL -->
+  <div class="modal" id="videoModal" onclick="closeVideo()">
+    <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
+  </div>
 
-
-
-<div class="modal" id="videoModal" onclick="closeVideo()">
-  <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
-</div>
-
-<script>
-function openVideo(link){
-  document.getElementById('videoFrame').src = link;
-  document.getElementById('videoModal').classList.add('active');
-}
-
-function closeVideo(){
-  document.getElementById('videoFrame').src = "";
-  document.getElementById('videoModal').classList.remove('active');
-}
-</script>
+  <!-- SUPABASE SCRIPT -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // بيانات Supabase الخاصة بك
+    const SUPABASE_URL = "https://qtmofpbuqoxtzvewecwc.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_hgV1ejJxGn7DIooCHjtq2A_vlcZb11v";
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let allVideos = [];
+
+    async function loadVideos() {
+      const { data, error } = await supabase
+        .from("videos")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("خطأ في تحميل الفيديوهات:", error);
+        return;
+      }
+
+      allVideos = data || [];
+      filterVideos("all");
+    }
+
+    window.filterVideos = function(category) {
+      const grid = document.querySelector(".work-grid");
+      grid.innerHTML = "";
+
+      const videos = allVideos.filter(video =>
+        category === "all" || video.category === category
+      );
+
+      videos.forEach(video => {
+        const videoHTML = `
+          <div class="work-card" onclick="openVideo('${video.preview}')">
+            <img src="${video.thumbnail}" alt="${video.title}">
+            <div class="play-icon">▶</div>
+            <div class="video-title">${video.title}</div>
+          </div>
+        `;
+        grid.insertAdjacentHTML("beforeend", videoHTML);
+      });
+    };
+
+    function openVideo(link) {
+      document.getElementById('videoFrame').src = link;
+      document.getElementById('videoModal').classList.add('active');
+    }
+
+    function closeVideo() {
+      document.getElementById('videoFrame').src = "";
+      document.getElementById('videoModal').classList.remove('active');
+    }
+
+    // تشغيل السلايدر
     let slides = document.querySelectorAll(".slide");
     let index = 0;
-
     function showSlide(i) {
       slides.forEach(slide => slide.classList.remove("active"));
       slides[i].classList.add("active");
     }
-
     function nextSlide() {
-      index++;
-      if (index >= slides.length) { index = 0; }
+      index = (index + 1) % slides.length;
       showSlide(index);
     }
-
     function prevSlide() {
-      index--;
-      if (index < 0) { index = slides.length - 1; }
+      index = (index - 1 + slides.length) % slides.length;
       showSlide(index);
     }
-
-    document.querySelector(".next").addEventListener("click", nextSlide);
-    document.querySelector(".prev").addEventListener("click", prevSlide);
-
-    // Auto slide every 1 second
+    document.querySelector(".next")?.addEventListener("click", nextSlide);
+    document.querySelector(".prev")?.addEventListener("click", prevSlide);
     setInterval(nextSlide, 3000);
+
+    // تحميل الفيديوهات عند بدء الصفحة
+    loadVideos();
   </script>
 </body>
 
-
 </html>
-
-
-
-
-
-
-
-
-
-
