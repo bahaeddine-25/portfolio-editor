@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boughzal Bahaeddine</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
   <style>
-    /* جميع الستايلات الموجودة – لم تتغير */
+    /* جميع الستايلات – كما هي */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: #000; color: #fff; }
     .container { display: grid; grid-template-columns: 1fr 1.2fr; min-height: 100vh; }
@@ -19,9 +16,6 @@
     .name { font-size: 48px; font-weight: 800; margin-bottom: 20px; }
     .meta { display: flex; gap: 30px; color: #aaa; margin-bottom: 25px; }
     .description { color: #ccc; line-height: 1.7; max-width: 500px; margin-bottom: 30px; }
-    .socials { display: flex; gap: 15px; }
-    .socials a { width: 40px; height: 40px; border-radius: 50%; background: #111; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; font-size: 18px; transition: .3s; }
-    .socials a:hover { background: #6c63ff; }
     .right { padding: 80px; }
     .section-title { font-size: 42px; font-weight: 800; margin-bottom: 40px; }
     .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
@@ -29,17 +23,17 @@
     .work-card img { width: 100%; height: 250px; object-fit: cover; transition: .4s; }
     .work-card:hover img { transform: scale(1.05); opacity: .8; }
     .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; opacity: .9; }
-    .video-title { position: absolute; bottom: 15px; left: 15px; font-size: 16px; font-weight: 600; background: rgba(0, 0, 0, 0.6); padding: 6px 12px; border-radius: 8px; }
-    .modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); display: none; align-items: center; justify-content: center; z-index: 999; }
+    .video-title { position: absolute; bottom: 15px; left: 15px; font-size: 16px; font-weight: 600; background: rgba(0,0,0,0.6); padding: 6px 12px; border-radius: 8px; }
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 999; }
     .modal iframe { width: 80%; height: 80%; border-radius: 12px; }
     .modal.active { display: flex; }
     .tools-grid { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; }
     .tool { display: flex; align-items: center; gap: 12px; padding: 14px 22px; background: #0f0f0f; border: 1px solid #222; border-radius: 14px; color: #fff; font-size: 15px; font-weight: 500; transition: all 0.3s ease; cursor: pointer; }
     .tool i img { width: 26px; height: 26px; object-fit: contain; }
-    .tool:hover { transform: translateY(-4px); border-color: #6c63ff; box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2); }
+    .tool:hover { transform: translateY(-4px); border-color: #6c63ff; box-shadow: 0 8px 20px rgba(108,99,255,0.2); }
     .filters { text-align: center; margin: 30px; }
     .filters button { padding: 10px 20px; margin: 5px; border: none; background: #222; color: white; cursor: pointer; border-radius: 20px; transition: 0.3s; }
-    .filters button:hover { transform: translateY(-4px); border-color: #6c63ff; box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2); }
+    .filters button:hover { transform: translateY(-4px); border-color: #6c63ff; box-shadow: 0 8px 20px rgba(108,99,255,0.2); }
     .experience { padding: 80px 10%; }
     .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; margin-top: 40px; }
     .exp-card { background: #0f0f0f; padding: 30px; border-radius: 15px; border: 1px solid #222; text-align: center; transition: .3s; }
@@ -62,8 +56,6 @@
     .social-card:nth-child(1):hover { border-color: #E1306C; color: #E1306C; }
     .social-card:nth-child(2):hover { border-color: #6c63ff; color: #6c63ff; }
     .social-card:nth-child(3):hover { border-color: #25D366; color: #25D366; }
-
-    /* Responsive */
     @media (max-width: 768px) {
       .container { grid-template-columns: 1fr; }
       .left, .right { padding: 50px; }
@@ -86,18 +78,15 @@
     }
   </style>
 </head>
-
 <body>
-
   <div class="container">
-    <!-- LEFT SIDE -->
     <div class="left">
       <img src="./كحل.png" class="profile-img">
       <div class="name">BOUGHZAL BAHAEDDINE</div>
       <div class="meta"><div>📍 Algeria</div><div>🌍 Arabic</div></div>
       <div class="description">
-        Performance-driven video editor with 1.5+ years of experience creating high-retention content.
-        Produced 100+ videos and contributed to campaigns generating 300+ orders in 30 minutes.
+        Performance-driven video editor with 1.5+ years of experience creating high-retention content.<br>
+        Produced 100+ videos and contributed to campaigns generating 300+ orders in 30 minutes.<br>
         Specialized in hook strategy, audience psychology, and AI-powered workflows.
       </div>
       <section class="social">
@@ -110,7 +99,6 @@
       </section>
     </div>
 
-    <!-- RIGHT SIDE -->
     <div class="right">
       <div class="section-title">My Work</div>
       <div class="filters">
@@ -170,45 +158,49 @@
     </div>
   </section>
 
-  <!-- VIDEO MODAL -->
   <div class="modal" id="videoModal" onclick="closeVideo()">
     <iframe id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
   </div>
 
-  <!-- SUPABASE SCRIPT -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // بيانات Supabase الخاصة بك
     const SUPABASE_URL = "https://qtmofpbuqoxtzvewecwc.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_hgV1ejJxGn7DIooCHjtq2A_vlcZb11v";
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let supabaseClient;
+    try {
+      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log("✅ Supabase initialized");
+    } catch(e) {
+      console.error("❌ Failed to init Supabase:", e);
+    }
 
     let allVideos = [];
 
     async function loadVideos() {
-      const { data, error } = await supabase
+      if (!supabaseClient) return;
+      const { data, error } = await supabaseClient
         .from("videos")
         .select("*")
         .order("created_at", { ascending: false });
-
       if (error) {
-        console.error("خطأ في تحميل الفيديوهات:", error);
+        console.error("Error loading videos:", error);
         return;
       }
-
       allVideos = data || [];
       filterVideos("all");
     }
 
     window.filterVideos = function(category) {
       const grid = document.querySelector(".work-grid");
+      if (!grid) return;
       grid.innerHTML = "";
-
-      const videos = allVideos.filter(video =>
-        category === "all" || video.category === category
-      );
-
+      const videos = allVideos.filter(v => category === "all" || v.category === category);
+      if (videos.length === 0) {
+        grid.innerHTML = "<div style='text-align:center;'>No videos in this category</div>";
+        return;
+      }
       videos.forEach(video => {
         const videoHTML = `
           <div class="work-card" onclick="openVideo('${video.preview}')">
@@ -222,37 +214,41 @@
     };
 
     function openVideo(link) {
-      document.getElementById('videoFrame').src = link;
-      document.getElementById('videoModal').classList.add('active');
+      const modal = document.getElementById("videoModal");
+      const iframe = document.getElementById("videoFrame");
+      iframe.src = link;
+      modal.classList.add("active");
     }
 
-    function closeVideo() {
-      document.getElementById('videoFrame').src = "";
-      document.getElementById('videoModal').classList.remove('active');
-    }
+    window.closeVideo = function() {
+      const modal = document.getElementById("videoModal");
+      const iframe = document.getElementById("videoFrame");
+      iframe.src = "";
+      modal.classList.remove("active");
+    };
 
-    // تشغيل السلايدر
+    // Slider
     let slides = document.querySelectorAll(".slide");
-    let index = 0;
+    let idx = 0;
     function showSlide(i) {
-      slides.forEach(slide => slide.classList.remove("active"));
+      slides.forEach(s => s.classList.remove("active"));
       slides[i].classList.add("active");
     }
     function nextSlide() {
-      index = (index + 1) % slides.length;
-      showSlide(index);
+      idx = (idx + 1) % slides.length;
+      showSlide(idx);
     }
     function prevSlide() {
-      index = (index - 1 + slides.length) % slides.length;
-      showSlide(index);
+      idx = (idx - 1 + slides.length) % slides.length;
+      showSlide(idx);
     }
-    document.querySelector(".next")?.addEventListener("click", nextSlide);
-    document.querySelector(".prev")?.addEventListener("click", prevSlide);
-    setInterval(nextSlide, 3000);
+    if (document.querySelector(".next")) {
+      document.querySelector(".next").addEventListener("click", nextSlide);
+      document.querySelector(".prev").addEventListener("click", prevSlide);
+      setInterval(nextSlide, 3000);
+    }
 
-    // تحميل الفيديوهات عند بدء الصفحة
     loadVideos();
   </script>
 </body>
-
 </html>
