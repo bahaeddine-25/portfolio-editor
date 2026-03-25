@@ -12,7 +12,6 @@ body{
     text-align:center;
     padding:50px;
 }
-
 .admin-box{
     background:#222;
     padding:30px;
@@ -20,13 +19,11 @@ body{
     max-width:500px;
     margin:auto;
 }
-
-input{
+input, select{
     width:90%;
     padding:10px;
     margin:10px 0;
 }
-
 button{
     padding:10px 20px;
     background:orange;
@@ -34,12 +31,10 @@ button{
     color:white;
     cursor:pointer;
 }
-
 .video-list{
     margin-top:30px;
     text-align:left;
 }
-
 .video-item{
     background:#333;
     padding:10px;
@@ -48,7 +43,6 @@ button{
     justify-content:space-between;
     align-items:center;
 }
-
 .video-item button{
     margin-left:5px;
 }
@@ -67,107 +61,139 @@ button{
 <h3>Add Video</h3>
 <input type="text" id="videoTitle" placeholder="Video Title">
 <input type="text" id="videoLink" placeholder="Google Drive Link">
+<select id="videoCategory">
+    <option value="all">All</option>
+    <option value="ai">AI Videos</option>
+    <option value="ads">Ads</option>
+    <option value="reel">Reels</option>
+    <option value="story">Stories</option>
+    <option value="highlight">Highlights</option>
+    <option value="islamic">Islamic</option>
+    <option value="map animation">map animation</option>
+</select>
 <button onclick="addVideo()">Add Video</button>
-
 <div class="video-list" id="videoList"></div>
 
 </div>
 </div>
 
-<script type="module">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// بيانات Supabase
+const SUPABASE_URL = "https://qtmofpbuqoxtzvewecwc.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_hgV1ejJxGn7DIooCHjtq2A_vlcZb11v";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  getDocs, 
-  deleteDoc, 
-  doc 
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBmzTHIZhdrqxyHAtS3TFnz24dFRxS9qoE",
-  authDomain: "portfolio-admin-d3ec7.firebaseapp.com",
-  projectId: "portfolio-admin-d3ec7",
-  storageBucket: "portfolio-admin-d3ec7.firebasestorage.app",
-  messagingSenderId: "474707735889",
-  appId: "1:474707735889:web:c83f35aad60dd0c53fcf70",
-  measurementId: "G-S397H2HMRT"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /* ===== PASSWORD ===== */
-
 window.checkLogin = function(){
-
   const pass = document.getElementById("adminPass").value;
-
-  if(pass === "1234"){   // يمكنك تغيير كلمة السر هنا
+  if(pass === "1234"){
     document.getElementById("panel").style.display = "block";
+    loadVideos();
   }else{
     alert("Wrong Password");
   }
 };
 
-/* ===== LOAD ===== */
-
+/* ===== LOAD VIDEOS ===== */
 async function loadVideos(){
-
   const list = document.getElementById("videoList");
   list.innerHTML = "";
 
-  const querySnapshot = await getDocs(collection(db, "videos"));
+  const { data, error } = await supabase
+    .from("videos")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-  querySnapshot.forEach((documento) => {
+  if(error){
+    console.error("Error loading videos:", error);
+    list.innerHTML = "<div style='color:red;'>Error loading videos</div>";
+    return;
+  }
 
-    const video = documento.data();
-    const id = documento.id;
+  if(!data || data.length === 0){
+    list.innerHTML = "<div>No videos yet.</div>";
+    return;
+  }
 
+  data.forEach(video => {
     list.innerHTML += `
       <div class="video-item">
         ${video.title}
         <div>
-          <button onclick="deleteVideo('${id}')">Delete</button>
+          <button onclick="deleteVideo('${video.id}')">Delete</button>
         </div>
       </div>
     `;
   });
 }
 
-/* ===== ADD ===== */
-
+/* ===== ADD VIDEO ===== */
 window.addVideo = async function(){
+  const title = document.getElementById("videoTitle").value.trim();
+  const link = document.getElementById("videoLink").value.trim();
+  const category = document.getElementById("videoCategory").value;
 
-  const title = document.getElementById("videoTitle").value;
-  const link = document.getElementById("videoLink").value;
+  if(!title || !link){
+    alert("Please fill all fields");
+    return;
+  }
 
-  const fileId = link.split("/d/")[1].split("/")[0];
+  // استخراج ID من رابط Google Drive
+  let fileId = null;
+  try {
+    const match = link.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if(match && match[1]){
+      fileId = match[1];
+    } else {
+      throw new Error("Invalid Google Drive link");
+    }
+  } catch(e){
+    alert("Invalid Google Drive link format. Example: https://drive.google.com/file/d/ID/view");
+    return;
+  }
 
-  const preview = "https://drive.google.com/file/d/" + fileId + "/preview";
-  const thumbnail = "https://drive.google.com/thumbnail?id=" + fileId;
+  const preview = `https://drive.google.com/file/d/${fileId}/preview`;
+  const thumbnail = `https://drive.google.com/thumbnail?id=${fileId}`;
 
-  await addDoc(collection(db, "videos"), {
-    title,
-    preview,
-    thumbnail
-  });
+  const { error } = await supabase
+    .from("videos")
+    .insert([{
+      title: title,
+      link: link,
+      preview: preview,
+      thumbnail: thumbnail,
+      category: category
+    }]);
 
-  loadVideos();
+  if(error){
+    console.error("Error adding video:", error);
+    alert("Error adding video: " + error.message);
+  } else {
+    alert("✅ Video Added Successfully");
+    document.getElementById("videoTitle").value = "";
+    document.getElementById("videoLink").value = "";
+    loadVideos(); // تحديث القائمة
+  }
 };
 
-/* ===== DELETE ===== */
-
+/* ===== DELETE VIDEO ===== */
 window.deleteVideo = async function(id){
+  if(confirm("Are you sure you want to delete this video?")){
+    const { error } = await supabase
+      .from("videos")
+      .delete()
+      .eq("id", id);
 
-  await deleteDoc(doc(db, "videos", id));
-  loadVideos();
+    if(error){
+      console.error("Error deleting video:", error);
+      alert("Error deleting video: " + error.message);
+    } else {
+      loadVideos();
+    }
+  }
 };
-
-loadVideos();
-
 </script>
 
 </body>
