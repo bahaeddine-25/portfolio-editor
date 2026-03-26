@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* جميع الستايلات – كما هي */
+    /* جميع الستايلات السابقة (مختصرة للاختصار) ... */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: #000; color: #fff; }
     .container { display: grid; grid-template-columns: 1fr 1.2fr; min-height: 100vh; }
@@ -56,6 +56,34 @@
     .social-card:nth-child(1):hover { border-color: #E1306C; color: #E1306C; }
     .social-card:nth-child(2):hover { border-color: #6c63ff; color: #6c63ff; }
     .social-card:nth-child(3):hover { border-color: #25D366; color: #25D366; }
+
+    /* زر تحميل السيرة الذاتية */
+    .cv-button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .cv-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #6c63ff, #4a42d6);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+    }
+    .cv-button i {
+      font-size: 18px;
+    }
+    .cv-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(108, 99, 255, 0.5);
+      background: linear-gradient(135deg, #7c74ff, #5a52e6);
+    }
+
     @media (max-width: 768px) {
       .container { grid-template-columns: 1fr; }
       .left, .right { padding: 50px; }
@@ -90,12 +118,6 @@
         Specialized in hook strategy, audience psychology, and AI-powered workflows.
       </div>
       <section class="social">
-        <!-- زر تحميل السيرة الذاتية -->
-<div class="cv-button-container">
-  <a href="./cv.pdf" download class="cv-button">
-    <i class="fa-solid fa-download"></i> Download CV
-  </a>
-</div>
         <h2 class="section-title">My Social Media</h2>
         <div class="social-grid">
           <a href="https://instagram.com/eaglex356" target="_blank" class="social-card"><i class="fa-brands fa-instagram"></i><span>@eaglex356</span></a>
@@ -103,6 +125,13 @@
           <a href="https://wa.me/213674357338" target="_blank" class="social-card"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a>
         </div>
       </section>
+
+      <!-- زر تحميل السيرة الذاتية -->
+      <div class="cv-button-container">
+        <a href="./cv.pdf" download class="cv-button">
+          <i class="fa-solid fa-download"></i> Download CV
+        </a>
+      </div>
     </div>
 
     <div class="right">
@@ -170,10 +199,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // بيانات Supabase الخاصة بك
     const SUPABASE_URL = "https://qtmofpbuqoxtzvewecwc.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_hgV1ejJxGn7DIooCHjtq2A_vlcZb11v";
-
     let supabaseClient;
     try {
       supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
